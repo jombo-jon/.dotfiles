@@ -78,17 +78,19 @@ nnoremap <C-H> <C-W><C-H>
  nnoremap <leader>e :Ex<cr>
 
  " Time and Date in insert mode only
-imap <silent> <leader>date <C-R>=strftime("%e-%b-%Y")<CR>
-imap <silent> <leader>time <C-R>=strftime("%l:%M(%p)")<CR>
-imap <silent> <leader>dt <C-R>=strftime("%e-%b-%Y, %l:%M(%p)")<CR>
+imap <silent> <leader>dd <C-R>=strftime("%Y/%m/%d - %A")<CR>
+imap <silent> <leader>tt <C-R>=strftime("%H:%M")<CR>
+imap <silent> <leader>dt <C-R>=strftime("%A - %Y/%m/%d - %H:%M")<CR>
 
- " Mark Files
+" Vimwiki
+
+
+" Mark Files
 function s:Marked(var)
   let b:tmp = toupper(a:var)
   echo b:tmp
   return b:tmp
 endfunction
-
 command -nargs=1 Test :call Marked(<q-args>)
 
 noremap <leader>mm :marks<CR>
@@ -128,6 +130,8 @@ if has('nvim')
 
         " Plug 'nvim-lua/plenary.nvim' " don't forget to add this one if you don't have it yet!
         " Plug 'ThePrimeagen/harpoon'
+
+        Plug 'vimwiki/vimwiki'
 
         call plug#end()
     
