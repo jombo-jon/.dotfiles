@@ -73,8 +73,11 @@ nnoremap <C-K> <C-W><C-K>
 nnoremap <C-L> <C-W><C-L>
 nnoremap <C-H> <C-W><C-H>
 
-" Explorer / Nertree
+" Tab / Explorer / Nertree
  nnoremap <C-n> :tabedit %<cr> <bar> :Ex<cr>
+
+ nnoremap <leader>tn :tabnew<cr>
+ nnoremap <leader>te :tabedit % <cr>
  nnoremap <leader>e :Ex<cr>
 
  " Time and Date in insert mode only
