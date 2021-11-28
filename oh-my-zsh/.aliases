@@ -1,0 +1,17 @@
+# Vim remap to nvim
+alias vim='nvim'
+
+alias python='python3'
+alias adj='sudo apt-get update -y && sudo apt-get upgrade -y'
+alias jdev="cd /mnt/c/00_Local/DevOps/"
+alias explo="cmd.exe /C explorer ."
+
+# Switch Directories
+alias ..='cd ..'
+alias cd..='cd ..'
+
+# Task (Rust)
+alias week='rweek -w | xargs nvim'
+alias nweek='rweek -n | xargs nvim'
+alias pweek='rweek -p | xargs nvim'
+alias numweek='rweek --number $1 | xargs nvim'

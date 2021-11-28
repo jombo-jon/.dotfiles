@@ -63,6 +63,7 @@ endif
 let mapleader ="," 
 noremap <leader>w :w<CR>
 noremap <leader>q :q<CR>
+noremap <leader>so :so%<CR>
 
 "Remap the key jj for ESC in insert mode
 imap jj <Esc>
@@ -84,8 +85,6 @@ nnoremap <C-H> <C-W><C-H>
 imap <silent> <leader>dd <C-R>=strftime("%Y/%m/%d - %A")<CR>
 imap <silent> <leader>tt <C-R>=strftime("%H:%M")<CR>
 imap <silent> <leader>dt <C-R>=strftime("%A - %Y/%m/%d - %H:%M")<CR>
-
-" Vimwiki
 
 
 " Mark Files
@@ -115,12 +114,15 @@ set nocompatible
 
 " filetype off
 filetype on
+set foldmethod=syntax
 
 " NeoVim Plugins
 if has('nvim')
-    call plug#begin('~/.vim/plugged')
+    call plug#begin('~/.config/nvim/plugged')
         Plug 'tpope/vim-surround'
         Plug 'tpope/vim-commentary'
+        " Plug 'tpope/vim-markdown'
+        " Plug 'masukomi/vim-markdown-folding'
         
         " Plug 'scrooloose/nerdtree'
 
@@ -130,11 +132,25 @@ if has('nvim')
         Plug 'nvim-lua/plenary.nvim'
         Plug 'nvim-telescope/telescope.nvim'
 
+        " Markdown (from video nickjj)
+        Plug 'godlygeek/tabular'
+        Plug 'plasticboy/vim-markdown'
+        " If you don't have nodejs and yarn
+        " use pre build, add 'vim-plug' to the filetype list so vim-plug can update this plugin
+        " see: https://github.com/iamcco/markdown-preview.nvim/issues/50
+        Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+        Plug 'masukomi/vim-markdown-folding'
+
+        
+        " If you have nodejs and yarn
+        "Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 
         " Plug 'nvim-lua/plenary.nvim' " don't forget to add this one if you don't have it yet!
         " Plug 'ThePrimeagen/harpoon'
 
-        Plug 'vimwiki/vimwiki'
+        " Plug 'vimwiki/vimwiki'
+        " Plug 'jremmen/vim-ripgrep'
+        Plug 'miyase256/vim-ripgrep', {'branch': 'fix/remove-complete-from-RgRoot'}
 
         call plug#end()
     
@@ -143,11 +159,18 @@ if has('nvim')
 
 endif
 
-" Find next occurence of ++ 
+" Find next occurence of ++
 nnoremap <leader><leader>   /++<CR> 
 
-" Marks for files
+" Markdown plasticboy controls
+" let g:vim_markdown_folding_style_pythonic = 1
 
+" Folding ----------------------------------------------------------------- {{{
+" Marks for files
+" Space to toggle folds.
+nnoremap <Space> za
+vnoremap <Space> za
+" }}}
 " harpoon
 " nnoremap <leader>a :lua require("harpoon.mark").add_file()<CR>
 " nnoremap <leader>d :lua require("harpoon.ui").toggle_quick_menu()<CR>
@@ -161,5 +184,9 @@ nnoremap <leader><leader>   /++<CR>
 " nnoremap <leader>te :lua require("harpoon.term").gotoTerminal(2)<CR>
 " nnoremap <leader>cu :lua require("harpoon.term").sendCommand(1, 1)<CR>
 " nnoremap <leader>ce :lua require("harpoon.term").sendCommand(1, 2)<CR>
+
+" let g:vimwiki_folding = 'expr'
+" autocmd FileType vimwiki setlocal syntax=markdown
+" autocmd FileType vimwiki setlocal foldenable
 
 filetype plugin indent on

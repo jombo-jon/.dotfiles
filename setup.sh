@@ -12,4 +12,6 @@ ln -sf ~/.dotfiles/tmux/.tmux.conf ~/
 
 echo "oh-my-zsh"
 rm ~/.zshrc
+rm ~/.aliases
 ln -sf ~/.dotfiles/oh-my-zsh/.zshrc ~/
+ln -sf ~/.dotfiles/oh-my-zsh/.aliases ~/
