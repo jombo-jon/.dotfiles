@@ -148,16 +148,45 @@ if has('nvim')
         " Plug 'nvim-lua/plenary.nvim' " don't forget to add this one if you don't have it yet!
         " Plug 'ThePrimeagen/harpoon'
 
-        " Plug 'vimwiki/vimwiki'
         " Plug 'jremmen/vim-ripgrep'
         Plug 'miyase256/vim-ripgrep', {'branch': 'fix/remove-complete-from-RgRoot'}
+
+        " Completion framework
+        Plug 'nvim-lua/completion-nvim'
+        Plug 'hrsh7th/nvim-cmp'
+        
+        " LSP completion source for nvim-cmp
+        Plug 'hrsh7th/cmp-nvim-lsp'
+        
+        " Snippet completion source for nvim-cmp
+        Plug 'hrsh7th/cmp-vsnip'
+        
+        " Other usefull completion sources
+        Plug 'hrsh7th/cmp-path'
+        Plug 'hrsh7th/cmp-buffer'
+        
+        " See hrsh7th's other plugins for more completion sources!
+        " LSP 
+        Plug 'neovim/nvim-lsp'
+        Plug 'neovim/nvim-lspconfig'
+        Plug 'kabouzeid/nvim-lspinstall'
+
+        " LSP - Rust
+        Plug 'simrat39/rust-tools.nvim'
 
         call plug#end()
     
     " ColorScheme Setup
+    let g:gruvbox_contrast_dark = 'hard'
+    if exists('+termguicolors')
+        let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+        let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+    endif
+    let g:gruvbox_invert_selection='0'
     colorscheme gruvbox
 
 endif
+
 
 " Find next occurence of ++
 nnoremap <leader><leader>   /++<CR> 
@@ -188,5 +217,9 @@ vnoremap <Space> za
 " let g:vimwiki_folding = 'expr'
 " autocmd FileType vimwiki setlocal syntax=markdown
 " autocmd FileType vimwiki setlocal foldenable
+"
+lua <<EOF
+require("jombo-jon")
+EOF
 
 filetype plugin indent on
