@@ -1,0 +1,7 @@
+/** Basic config file **/
+
+configuration {
+  show-icons:         true;
+  icon-theme:         "Papirus";
+}
+@theme "/home/hej/.local/share/rofi/themes/squared-nord.rasi"

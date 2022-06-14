@@ -129,17 +129,17 @@ if has('nvim')
         " GruvBox
         Plug 'morhetz/gruvbox'
 
-        Plug 'nvim-lua/plenary.nvim'
         Plug 'nvim-telescope/telescope.nvim'
-
+        Plug 'nvim-lua/plenary.nvim'
+        Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
         " Markdown (from video nickjj)
         Plug 'godlygeek/tabular'
-        Plug 'plasticboy/vim-markdown'
+        " Plug 'plasticboy/vim-markdown'
         " If you don't have nodejs and yarn
         " use pre build, add 'vim-plug' to the filetype list so vim-plug can update this plugin
         " see: https://github.com/iamcco/markdown-preview.nvim/issues/50
-        Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-        Plug 'masukomi/vim-markdown-folding'
+        " Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
+        " Plug 'masukomi/vim-markdown-folding'
 
         
         " If you have nodejs and yarn
@@ -149,21 +149,21 @@ if has('nvim')
         " Plug 'ThePrimeagen/harpoon'
 
         " Plug 'jremmen/vim-ripgrep'
-        Plug 'miyase256/vim-ripgrep', {'branch': 'fix/remove-complete-from-RgRoot'}
+        "Plug 'miyase256/vim-ripgrep', {'branch': 'fix/remove-complete-from-RgRoot'}
 
         " Completion framework
         Plug 'nvim-lua/completion-nvim'
         Plug 'hrsh7th/nvim-cmp'
         
         " LSP completion source for nvim-cmp
-        Plug 'hrsh7th/cmp-nvim-lsp'
+        " Plug 'hrsh7th/cmp-nvim-lsp'
         
         " Snippet completion source for nvim-cmp
-        Plug 'hrsh7th/cmp-vsnip'
+        " Plug 'hrsh7th/cmp-vsnip'
         
         " Other usefull completion sources
-        Plug 'hrsh7th/cmp-path'
-        Plug 'hrsh7th/cmp-buffer'
+        " Plug 'hrsh7th/cmp-path'
+        " Plug 'hrsh7th/cmp-buffer'
         
         " See hrsh7th's other plugins for more completion sources!
         " LSP 

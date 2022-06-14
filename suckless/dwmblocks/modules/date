@@ -1,0 +1,12 @@
+#!/bin/bash
+
+# Prints out the date
+
+PREFIX=''
+
+get_date()
+{
+    echo "$PREFIX Week $(date '+%U') : $(date '+%d-%m-%y (%a)')"
+}
+
+get_date

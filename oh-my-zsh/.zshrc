@@ -1,8 +1,25 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
-    tmux attach -t default || tmux new -s default
-fi
+#
+# New Terminal 
+#if [ -z "$TMUX" ]; then
+#    #Tmux is active
+#    tmux detach
+#    tmux new
+#    # clear
+#else
+#    tmux new
+#    # clear
+#fi
+
+# if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
+#     # tmux attach -t default || tmux new -s default
+#     tmux detach || tmux new
+# fi
+#  tmux
+case $- in *i*)
+  if [ -z "$TMUX" ]; then exec tmux; fi;;
+esac
 
 # Path to your oh-my-zsh installation.
 export ZSH="/home/hej/.oh-my-zsh"
@@ -12,7 +29,9 @@ export ZSH="/home/hej/.oh-my-zsh"
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="agnoster"
-eval `dircolors ~/.dircolors`
+# ZSH_THEME="gruvbox"
+SOLARIZED_THEME="dark"
+# eval `dircolors ~/.dircolors`
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -68,9 +87,17 @@ eval `dircolors ~/.dircolors`
 # ZSH_CUSTOM=/path/to/new-custom-folder
 
 # display only username when on PC
+# prompt_context() {
+#   # Custom (Random emoji)
+#   emojis=("⚡️" "🔥" "💀" "👑" "😎" "🐸" "🐵" "🦄" "🌈" "🍻" "🚀" "💡" "🎉" "🔑" "🇹🇭" "🚦" "🌙")
+#   RAND_EMOJI_N=$(( $RANDOM % ${#emojis[@]} + 1))
+#   prompt_segment black default "${emojis[$RAND_EMOJI_N]} "
+# }
 prompt_context() {
+  emojis=("⚡️" "🔥" "💀" "👑" "😎" "🐸" "🐵" "🦄" "🌈" "🍻" "🚀" "💡" "🎉" "🔑" "🇹🇭" "🚦" "🌙")
   if [[ "$USER" != "$DEFAULT_USER" || -n "$SSH_CLIENT" ]]; then
     prompt_segment black default "%(!.%{%F{yellow}%}.)$USER"
+    # prompt_segment black default "${emojis[4]}"
   fi
 }
 # Which plugins would you like to load?

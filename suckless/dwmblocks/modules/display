@@ -1,0 +1,21 @@
+#!/bin/bash
+
+# Gets the wifi status
+LAPTOP_ICON='S'
+DUAL_ICON='D'
+PHILIPS_ICON='P'
+
+get_display()
+{
+        dp=$(xrandr | grep -w DP-1 | grep -w connected)
+        if [[ $dp  ]]
+        then
+            echo $PHILIPS_ICON 
+            xrandr --output eDP-1 --off --output DP-1 --mode 5120x1440 --auto
+        else
+            echo $LAPTOP_ICON 
+            xrandr --output eDP-1 --auto
+        fi
+}
+
+get_display

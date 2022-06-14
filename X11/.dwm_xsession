@@ -1,0 +1,28 @@
+#!/bin/sh
+
+# tmux
+tmux kill-server
+# Feh 
+# feh --bg-fill ~/.config/X11/System76-Robot.webp
+# feh --bg-fill ~/.config/X11/gruvboxlinux.jpg
+
+# Dwmblocks
+# dwmblocks &
+
+# DWMbar
+# ## Battery Conditions
+
+# # dwmbar &
+# status () { 
+#     # batt=$(get_battery())
+#     # echo -n "BAT: $batt | $(date '+%Y-%m-%d %H:%M:%S')"
+#     echo -n " $(./modules/battery)  | $(date '+%Y-%m-%d %H:%M:%S')"
+# }
+
+# while :; do
+#     xsetroot -name "$(status)"
+#     sleep 1
+# done &
+
+# DWM
+exec dwm
