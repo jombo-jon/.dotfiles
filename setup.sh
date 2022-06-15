@@ -3,8 +3,6 @@
 echo "App"
 sudo apt install autojump
 
-echo "Symbolinks"
-
 echo "zsh"
 sudo apt install zsh -y
 chsh -s /usr/bin/zsh
@@ -32,9 +30,10 @@ echo "X11"
 ln -sf ~/.dotfiles/X11 ~/.config
 
 echo "suckless"
-ln -sf ~/.dotfiles/X11 ~/.config
 cd ~/.config/suckless/dwm-6.3
 sudo make clean install
+ln -sf ~/.dotfiles/suckless/.dwm ~/
+
 
 cd ~/.config/suckless/dmenu
 sudo make clean install
@@ -45,4 +44,14 @@ sudo make clean install
 echo "rofi"
 sudo apt install rofi
 ln -sf ~/.dotfiles/rofi/config.rasi ~/.config/rofi/
+
+echo "nnn"
+cd ~/.dotfiles/nnn
+source ./nnn_profile.sh
+
+echo "Spotify"
+sudo apt install spotify
+
+echo "Dropbox"
+sudo apt install dropbox
 

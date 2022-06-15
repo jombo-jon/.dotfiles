@@ -33,7 +33,7 @@ static const char *colors[][3]      = {
 
 /* tagging */
 /* static const char *tags[] = { "1", "2", "3", "4", "5", "6", "7", "8", "9" }; */
-static const char *tags[] = { "</>", "@", "#", "", "5", "6", "7", "8", "9" };
+static const char *tags[] = { "1", "2" , "", "", "", "" };
 
 static const Rule rules[] = {
     /* xprop(1):
@@ -41,8 +41,12 @@ static const Rule rules[] = {
      *  WM_NAME(STRING) = title
      */
     /* class      instance    title       tags mask     isfloating   monitor */
-    { "Gimp",     NULL,       NULL,       0,            1,           -1 },
-    { "Firefox",  NULL,       NULL,       1 << 8,       0,           -1 },
+    /* { "Spotify", "spotify",   "spotify",       1 << 5,      0,           -1 }, */
+    /* { NULL, "spotify",   "spotify",       1 << 5,      0,           -1 }, */
+    { "Spotify", NULL,   NULL,       1 << 5,      True,           -1 },
+    { "TelegramDesktop",  "telegram-desktop",       NULL,       1 << 2,      0,           -1 },
+    { "Signal",  "signal",       NULL,       1 << 2,      0,           -1 },
+    { "KeePassXC" ,"keepassxc",   NULL,       1 << 4,      0,           -1 },
 };
 
 /* layout(s) */
@@ -77,6 +81,7 @@ static const char *termcmd[]  = { "gnome-terminal", NULL };
 
 /* Custom Modifier Keybindings */
 static const char *rofiruncmd[] = {"rofi","-show","run",NULL};
+static const char *flameshotcmd[] = {"flameshot","gui",NULL,NULL};
 
 static Key keys[] = {
     /* modifier                     key        function        argument */
@@ -99,6 +104,7 @@ static Key keys[] = {
     { MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
     { MODKEY,                       XK_space,  setlayout,      {0} },
     { MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
+    { MODKEY|ShiftMask,             XK_s,  spawn, {.v =flameshotcmd} },
     { MODKEY,                       XK_0,      view,           {.ui = ~0 } },
     { MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
     { MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
