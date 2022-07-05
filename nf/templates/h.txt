@@ -1,0 +1,17 @@
+/****************************************************************************
+ * @file        {{ filename }}
+{%- if project|length %}
+ * @project     {{ project }}
+{% endif %}
+ * @author      Jonathan Hendriks
+ * @date        {{ date}} 
+{%- if brief|length %}
+ * @brief       {{ brief }}
+{% endif %}
+ ****************************************************************************/
+
+#ifndef {{ caps }}
+#define {{ caps }}
+
+#endif
+

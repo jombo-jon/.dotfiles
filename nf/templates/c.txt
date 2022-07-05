@@ -1,0 +1,16 @@
+/****************************************************************************
+ * @file        {{ filename }}
+{%- if project|length %}
+ * @project     {{ project }}
+{% endif %}
+ * @author      Jonathan Hendriks
+ * @date        {{ date}} 
+{%- if brief|length %}
+ * @brief       {{ brief }}
+{% endif %}
+ ****************************************************************************/
+{% if main == true %}
+int main(int argc, char *argv[]) {
+
+}
+{% endif %}
