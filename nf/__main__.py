@@ -6,7 +6,35 @@ import re
 import datetime
 from jinja2 import Template 
 
+## ---------------------
+## Python Script Application Project
+def pyfile():
+    template = os.path.expanduser(os.path.join('~','.dotfiles','nf','templates','py.txt'))
+    with open(template) as f:
+        contents = f.read()
+        
+        tm = Template(contents)
+        # Get Information
+        print()
+        project = input('Project:')
+        brief = input('Brief Description:')
+        x = datetime.datetime.now()
+        date = x.strftime("%c")
+        data = tm.render(   filename=filename,
+                            project = project,
+                            date = date,
+                            brief = brief,
+                            main = main
+                        )
+        f = open(filename, "w")
+        f.write(data)
+        f.close()
+## ---------------------
+
+## ---------------------
+## C Application Project
 def cfile():
+    # template = os.path.expanduser(os.path.join('~','.dotfiles','nf','templates','c.txt'))
     template = os.path.expanduser(os.path.join('~','.dotfiles','nf','templates','c.txt'))
     with open(template) as f:
         contents = f.read()
@@ -50,6 +78,8 @@ def hfile():
         f.write(data)
         f.close()
 
+## ---------------------
+## ------ MAIN ----------
 if __name__ == "__main__":
    
     n = len(sys.argv)
@@ -73,6 +103,8 @@ if __name__ == "__main__":
             cfile()
         elif '.h' in extension:
             hfile()
+        elif '.py' in extension:
+            pyfile()
         else:
             os.system('touch ' + filename)
         

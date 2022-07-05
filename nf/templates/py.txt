@@ -1,0 +1,16 @@
+#!/usr/bin/env python3
+""" ****************************************************************************
+ * @file        {{ filename }}
+{%- if project|length %}
+ * @project     {{ project }}
+{% endif %}
+ * @author      Jonathan Hendriks
+ * @date        {{ date}} 
+{%- if brief|length %}
+ * @brief       {{ brief }}
+{% endif %}
+**************************************************************************** """
+{% if main == true %}
+if __name__ == "__main__":
+   
+{% endif %}
