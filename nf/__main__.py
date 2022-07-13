@@ -7,6 +7,40 @@ import datetime
 from jinja2 import Template 
 
 ## ---------------------
+## vhdl Script Application Project
+def vhdlfile():
+
+    typ = input("Type: [Enter] Compoent, [pkg/p] package, [tb/t] testbench):")
+    print()
+    if typ == "pkg" or typ == 'p':
+        template = os.path.expanduser(os.path.join('~','.dotfiles','nf','templates','vhdlpackage.txt'))
+        component = input('Package Name:')
+    elif typ == "tb" or typ == 't':
+        template = os.path.expanduser(os.path.join('~','.dotfiles','nf','templates','vhdltestbench.txt'))
+        component = input('Testbench Name:')
+    else:
+        template = os.path.expanduser(os.path.join('~','.dotfiles','nf','templates','vhdl.txt'))
+        component = input('Component Name:')
+        
+    with open(template) as f:
+        contents = f.read()
+        tm = Template(contents)
+        # Get Information
+        project = input('Project:')
+        brief = input('Brief Description:')
+        x = datetime.datetime.now()
+        date = x.strftime("%c")
+        data = tm.render(   filename=filename,
+                            project = project,
+                            date = date,
+                            component = component,
+                            brief = brief
+                        )
+        f = open(filename, "w")
+        f.write(data)
+        f.close()
+## ---------------------
+## ---------------------
 ## Python Script Application Project
 def pyfile():
     template = os.path.expanduser(os.path.join('~','.dotfiles','nf','templates','py.txt'))
@@ -105,6 +139,8 @@ if __name__ == "__main__":
             hfile()
         elif '.py' in extension:
             pyfile()
+        elif '.vhdl' in extension:
+            vhdlfile()
         else:
             os.system('touch ' + filename)
         

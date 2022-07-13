@@ -1,0 +1,40 @@
+-------------------------------------------------------------------------------
+--
+-- File         : {{ filename }} - Package
+{%- if project|length %}
+-- Project      : {{ project }}
+{% endif %}
+{%- if brief|length %}
+-- Brief        : {{ brief }}
+{% endif %}
+-- 
+-- Author       : Jonathan Hendriks
+-- Date         : {{ date }}
+-- Version      : 0.0
+--
+-------------------------------------------------------------------------------
+
+---------------
+-- Libraries --
+---------------
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+---------------
+-- Package --
+---------------
+package {{ package }} is
+  
+	
+  
+end {{ package }};
+
+---------------
+-- Body --
+---------------
+package body {{ package }} is
+
+	
+
+end {{ package }};

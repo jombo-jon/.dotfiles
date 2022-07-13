@@ -1,0 +1,69 @@
+-------------------------------------------------------------------------------
+--
+-- File         : {{ filename }}
+{%- if project|length %}
+-- Project      : {{ project }}
+{% endif %}
+{%- if brief|length %}
+-- Brief        : {{ brief }}
+{% endif %}
+-- 
+-- Author       : Jonathan Hendriks
+-- Date         : {{ date }}
+-- Version      : 0.0
+--
+-------------------------------------------------------------------------------
+
+---------------
+-- Libraries --
+---------------
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+------------------
+-- Dependencies --
+------------------
+
+
+------------
+-- Entity --
+------------
+entity {{ component }} is
+    generic (
+        
+        );
+    port (
+        -- Standard Signals
+        clk_i   : in  std_logic;
+        rst_i   : in  std_logic
+        );
+end entity {{ component }};
+
+------------------
+-- Architecture --
+------------------
+architecture Behavioral of {{ component }} is
+
+    -----------
+    -- types --
+    -----------
+    --type fifo_type is array (0 to FIFO_DEPTH_G-1) of std_logic_vector(DATASIZE_G-1 downto 0);
+
+    ----------------------
+    -- Internal Signals --
+    ----------------------
+   
+
+begin
+
+    ----------------------
+    -- Process Part --
+    ----------------------
+    
+    ------------------------
+    -- Combinatorial Part --
+    ------------------------
+    
+
+end architecture Behavioral;

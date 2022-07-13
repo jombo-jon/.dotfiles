@@ -4,6 +4,11 @@
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int gappx     = 2;        /* gaps between windows */
 static const unsigned int snap      = 32;       /* snap pixel */
+static const unsigned int gappih    = 10;       /* horiz inner gap between windows */
+static const unsigned int gappiv    = 10;       /* vert inner gap between windows */
+static const unsigned int gappoh    = 10;       /* horiz outer gap between windows and screen edge */
+static const unsigned int gappov    = 10;       /* vert outer gap between windows and screen edge */
+static const int smartgaps          = 0;        /* 1 means no outer gap when there is only one window */
 static const int showbar            = True;        /* 0 means no bar */
 static const int topbar             = True;        /* 0 means bottom bar */
 static const char *fonts[]          = { "monospace:size=8" };
@@ -40,13 +45,11 @@ static const Rule rules[] = {
      *  WM_CLASS(STRING) = instance, class
      *  WM_NAME(STRING) = title
      */
-    /* class      instance    title       tags mask     isfloating   monitor */
-    /* { "Spotify", "spotify",   "spotify",       1 << 5,      0,           -1 }, */
-    /* { NULL, "spotify",   "spotify",       1 << 5,      0,           -1 }, */
-    { "Spotify", NULL,   NULL,       1 << 5,      True,           -1 },
-    { "TelegramDesktop",  "telegram-desktop",       NULL,       1 << 2,      0,           -1 },
-    { "Signal",  "signal",       NULL,       1 << 2,      0,           -1 },
-    { "KeePassXC" ,"keepassxc",   NULL,       1 << 4,      0,           -1 },
+    /* class            instance            title       tags mask   iscentered  isfloating  monitor */
+    { "Spotify",        NULL,               NULL,       1 << 5,     0,          0,          -1 },
+    { "TelegramDesktop","telegram-desktop", NULL,       1 << 2,     0,          0           -1 },
+    { "Signal",         "signal",           NULL,       1 << 2,     0,          0,          -1 },
+    { "KeePassXC" ,     "keepassxc",        NULL,       1 << 4,     0,          0,          -1 },
 };
 
 /* layout(s) */
@@ -59,6 +62,8 @@ static const Layout layouts[] = {
     /* symbol     arrange function */
     { "[]=",      tile },    /* first entry is default */
     { "><>",      NULL },    /* no layout function means floating behavior */
+    { "|M|",	centeredmaster },		/* Master in middle, slaves on sides */
+    { ">M>",	centeredfloatingmaster },	/* Same but master floats */
     { "[M]",      monocle },
 };
 
@@ -82,18 +87,28 @@ static const char *termcmd[]  = { "gnome-terminal", NULL };
 /* Custom Modifier Keybindings */
 static const char *rofiruncmd[] = {"rofi","-show","run",NULL};
 static const char *flameshotcmd[] = {"flameshot","gui",NULL,NULL};
+static const char *browser[] = {"firefox",NULL,NULL,NULL};
+
+static const char *upvol[]   = { "amixer", "set", "Master", "5%+",     NULL };
+static const char *downvol[] = { "amixer", "set", "Master", "5%-",     NULL };
+static const char *mutevol[] = { "amixer", "set", "Master", "toggle", NULL };
 
 static Key keys[] = {
     /* modifier                     key        function        argument */
     { MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
     { MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
     { MODKEY|ShiftMask,             XK_r,       spawn,        {.v = rofiruncmd } }, //  SHCMD("rofi -show run") },
-    { MODKEY,             XK_r,       spawn,        {.v = rofiruncmd } }, //  SHCMD("rofi -show run") },
+    { MODKEY,                       XK_r,       spawn,        {.v = rofiruncmd } }, //  SHCMD("rofi -show run") },
+    { MODKEY,                       XK_w,       spawn,        {.v = browser } },
+    { MODKEY|ShiftMask,             XK_s,       spawn,          {.v =flameshotcmd} },
+    
     { MODKEY,                       XK_b,      togglebar,      {0} },
     { MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
     { MODKEY,                       XK_k,      focusstack,     {.i = -1 } },
-    { MODKEY,                       XK_i,      incnmaster,     {.i = +1 } },
-    { MODKEY,                       XK_d,      incnmaster,     {.i = -1 } },
+
+    { MODKEY,                       XK_v,      incnmaster,     {.i = +1 } },
+    { MODKEY,                       XK_f,      incnmaster,     {.i = -1 } },
+    
     { MODKEY,                       XK_h,      setmfact,       {.f = -0.05} },
     { MODKEY,                       XK_l,      setmfact,       {.f = +0.05} },
     { MODKEY|ShiftMask,             XK_Return, zoom,           {0} },
@@ -102,9 +117,16 @@ static Key keys[] = {
     { MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
     { MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
     { MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+    
+    { MODKEY,			            XK_y,		setlayout,	{.v = &layouts[0]} }, /* tile */
+	{ MODKEY,		                XK_u,		setlayout,	{.v = &layouts[1]} }, /* float */
+	{ MODKEY,			            XK_i,		setlayout,	{.v = &layouts[2]} }, /* Centeredmaster */
+	{ MODKEY,			            XK_o,		setlayout,	{.v = &layouts[3]} }, /* CenteredFloating Master */
+	{ MODKEY,		                XK_p,		setlayout,	{.v = &layouts[4]} }, /* monocle */
+
     { MODKEY,                       XK_space,  setlayout,      {0} },
     { MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
-    { MODKEY|ShiftMask,             XK_s,  spawn, {.v =flameshotcmd} },
+
     { MODKEY,                       XK_0,      view,           {.ui = ~0 } },
     { MODKEY|ShiftMask,             XK_0,      tag,            {.ui = ~0 } },
     { MODKEY,                       XK_comma,  focusmon,       {.i = -1 } },
@@ -117,8 +139,11 @@ static Key keys[] = {
     TAGKEYS(                        XK_4,                      3)
     TAGKEYS(                        XK_5,                      4)
     TAGKEYS(                        XK_6,                      5)
-    TAGKEYS(                        XK_s,                      5)
+    /* TAGKEYS(                        XK_s,                      5) */
     { MODKEY|ShiftMask,             XK_q,      quit,           {0} },
+	{ MODKEY,                       XK_F6,    spawn,          {.v = upvol   } },
+	{ MODKEY,                       XK_F5,    spawn,          {.v = downvol } },
+	{ MODKEY,                       XK_F3,    spawn,          {.v = mutevol } },
 };
 
 /* button definitions */
