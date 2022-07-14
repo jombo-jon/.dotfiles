@@ -81,13 +81,14 @@ static const Layout layouts[] = {
 /* commands */
 static char dmenumon[2] = "0"; /* component of dmenucmd, manipulated in spawn() */
 static const char *dmenucmd[] = { "dmenu_run", "-m", dmenumon, "-fn", dmenufont, "-nb", col_gray1, "-nf", col_gray3, "-sb", col_cyan, "-sf", col_gray4, NULL };
-/* static const char *termcmd[]  = { "st", NULL }; */
-static const char *termcmd[]  = { "gnome-terminal", NULL };
+static const char *termcmd[]  = { "st", NULL };
+/* static const char *termcmd[]  = { "gnome-terminal", NULL }; */
 
 /* Custom Modifier Keybindings */
 static const char *rofiruncmd[] = {"rofi","-show","run",NULL};
 static const char *flameshotcmd[] = {"flameshot","gui",NULL,NULL};
 static const char *browser[] = {"firefox",NULL,NULL,NULL};
+/* static const char *fileexplorer[] = {"gnome-terminal","-x","nnn",NULL}; */
 
 static const char *upvol[]   = { "amixer", "set", "Master", "5%+",     NULL };
 static const char *downvol[] = { "amixer", "set", "Master", "5%-",     NULL };
@@ -95,7 +96,7 @@ static const char *mutevol[] = { "amixer", "set", "Master", "toggle", NULL };
 
 static Key keys[] = {
     /* modifier                     key        function        argument */
-    { MODKEY,                       XK_p,      spawn,          {.v = dmenucmd } },
+    { MODKEY|ShiftMask,             XK_p,      spawn,          {.v = dmenucmd } },
     { MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
     { MODKEY|ShiftMask,             XK_r,       spawn,        {.v = rofiruncmd } }, //  SHCMD("rofi -show run") },
     { MODKEY,                       XK_r,       spawn,        {.v = rofiruncmd } }, //  SHCMD("rofi -show run") },
@@ -117,6 +118,8 @@ static Key keys[] = {
     { MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
     { MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
     { MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+    
+    /* { MODKEY,			            XK_e,		spawn,	        {.v = fileexplorer} }, /1* tile *1/ */
     
     { MODKEY,			            XK_y,		setlayout,	{.v = &layouts[0]} }, /* tile */
 	{ MODKEY,		                XK_u,		setlayout,	{.v = &layouts[1]} }, /* float */
