@@ -88,7 +88,8 @@ static const char *termcmd[]  = { "st", NULL };
 static const char *rofiruncmd[] = {"rofi","-show","run",NULL};
 static const char *flameshotcmd[] = {"flameshot","gui",NULL,NULL};
 static const char *browser[] = {"firefox",NULL,NULL,NULL};
-/* static const char *fileexplorer[] = {"gnome-terminal","-x","nnn",NULL}; */
+static const char *fileexplorer[] = {"gnome-terminal","-x","nnn",NULL};
+static const char *nnn[] = {"gnome-terminal","-x","nnn",NULL};
 
 static const char *upvol[]   = { "amixer", "set", "Master", "5%+",     NULL };
 static const char *downvol[] = { "amixer", "set", "Master", "5%-",     NULL };
@@ -96,12 +97,13 @@ static const char *mutevol[] = { "amixer", "set", "Master", "toggle", NULL };
 
 static Key keys[] = {
     /* modifier                     key        function        argument */
-    { MODKEY|ShiftMask,             XK_p,      spawn,          {.v = dmenucmd } },
+    { MODKEY,             XK_p,      spawn,          {.v = dmenucmd } },
     { MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
-    { MODKEY|ShiftMask,             XK_r,       spawn,        {.v = rofiruncmd } }, //  SHCMD("rofi -show run") },
     { MODKEY,                       XK_r,       spawn,        {.v = rofiruncmd } }, //  SHCMD("rofi -show run") },
     { MODKEY,                       XK_w,       spawn,        {.v = browser } },
     { MODKEY|ShiftMask,             XK_s,       spawn,          {.v =flameshotcmd} },
+    /* { MODKEY,			            XK_e,		spawn,	        SHCMD("~/.dotfiles/nnn/launcher.sh && exit")}, //{.v = fileexplorer} }, /1* tile *1/ */
+    /* { MODKEY,			            XK_e,		spawn,	        {.v = nnn} }}, //{.v = fileexplorer} }, /1* tile *1/ */
     
     { MODKEY,                       XK_b,      togglebar,      {0} },
     { MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
@@ -115,17 +117,17 @@ static Key keys[] = {
     { MODKEY|ShiftMask,             XK_Return, zoom,           {0} },
     { MODKEY,                       XK_Tab,    view,           {0} },
     { MODKEY|ShiftMask,             XK_c,      killclient,     {0} },
-    { MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} },
-    { MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} },
-    { MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} },
+    /* { MODKEY,                       XK_t,      setlayout,      {.v = &layouts[0]} }, */
+    /* { MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} }, */
+    /* { MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} }, */
     
     /* { MODKEY,			            XK_e,		spawn,	        {.v = fileexplorer} }, /1* tile *1/ */
     
-    { MODKEY,			            XK_y,		setlayout,	{.v = &layouts[0]} }, /* tile */
-	{ MODKEY,		                XK_u,		setlayout,	{.v = &layouts[1]} }, /* float */
-	{ MODKEY,			            XK_i,		setlayout,	{.v = &layouts[2]} }, /* Centeredmaster */
-	{ MODKEY,			            XK_o,		setlayout,	{.v = &layouts[3]} }, /* CenteredFloating Master */
-	{ MODKEY,		                XK_p,		setlayout,	{.v = &layouts[4]} }, /* monocle */
+    { MODKEY|ShiftMask,			            XK_y,		setlayout,	{.v = &layouts[0]} }, /* tile */
+	{ MODKEY|ShiftMask,		                XK_u,		setlayout,	{.v = &layouts[1]} }, /* float */
+	{ MODKEY|ShiftMask,			            XK_i,		setlayout,	{.v = &layouts[2]} }, /* Centeredmaster */
+	{ MODKEY|ShiftMask,			            XK_o,		setlayout,	{.v = &layouts[3]} }, /* CenteredFloating Master */
+	{ MODKEY|ShiftMask,		                XK_p,		setlayout,	{.v = &layouts[4]} }, /* monocle */
 
     { MODKEY,                       XK_space,  setlayout,      {0} },
     { MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },

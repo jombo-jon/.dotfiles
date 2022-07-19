@@ -12,8 +12,7 @@ xdotool key Super_L+1 # Switch Back to home screen
 # Wallpaper
 feh --bg-fill ~/.config/X11/gruvboxlinux.jpg &
 
-# NNN Colors
-source ~/.dotfiles/nnn/nnn_profile.sh
+# source ~/.dotfiles/nnn/nnn_profile.sh
 
 # Dwmblocks
 dwmblocks &

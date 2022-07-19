@@ -149,3 +149,5 @@ alias gsim='rlwrap tclsh'
 
 # Created by `pipx` on 2021-11-29 19:36:45
 export PATH="$PATH:/home/hej/.local/bin"
+
+source $HOME/.dotfiles/nnn/nnn_profile.sh
