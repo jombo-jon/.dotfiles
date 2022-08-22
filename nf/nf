@@ -66,6 +66,30 @@ def pyfile():
 ## ---------------------
 
 ## ---------------------
+## Bash File 
+def shfile():
+    # template = os.path.expanduser(os.path.join('~','.dotfiles','nf','templates','c.txt'))
+    template = os.path.expanduser(os.path.join('~','.dotfiles','nf','templates','sh.txt'))
+    with open(template) as f:
+        contents = f.read()
+        
+        tm = Template(contents)
+        # Get Information
+        print()
+        project = input('Project:')
+        brief = input('Brief Description:')
+        x = datetime.datetime.now()
+        date = x.strftime("%c")
+        data = tm.render(   filename=filename,
+                            project = project,
+                            date = date,
+                            brief = brief
+                        )
+        f = open(filename, "w")
+        f.write(data)
+        f.close()
+
+## ---------------------
 ## C Application Project
 def cfile():
     # template = os.path.expanduser(os.path.join('~','.dotfiles','nf','templates','c.txt'))
@@ -141,6 +165,8 @@ if __name__ == "__main__":
             pyfile()
         elif '.vhdl' in extension:
             vhdlfile()
+        elif '.sh' in extension:
+            shfile()
         else:
             os.system('touch ' + filename)
         

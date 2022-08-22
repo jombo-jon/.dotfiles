@@ -1,5 +1,7 @@
 /* See LICENSE file for copyright and license details. */
 
+#include <X11/XF86keysym.h>
+
 /* appearance */
 static const unsigned int borderpx  = 2;        /* border pixel of windows */
 static const unsigned int gappx     = 2;        /* gaps between windows */
@@ -62,8 +64,8 @@ static const Layout layouts[] = {
     /* symbol     arrange function */
     { "[]=",      tile },    /* first entry is default */
     { "><>",      NULL },    /* no layout function means floating behavior */
-    { "|M|",	centeredmaster },		/* Master in middle, slaves on sides */
-    { ">M>",	centeredfloatingmaster },	/* Same but master floats */
+    { "|M|",    centeredmaster },       /* Master in middle, slaves on sides */
+    { ">M>",    centeredfloatingmaster },   /* Same but master floats */
     { "[M]",      monocle },
 };
 
@@ -88,22 +90,28 @@ static const char *termcmd[]  = { "st", NULL };
 static const char *rofiruncmd[] = {"rofi","-show","run",NULL};
 static const char *flameshotcmd[] = {"flameshot","gui",NULL,NULL};
 static const char *browser[] = {"firefox",NULL,NULL,NULL};
+/* static const char *surfcmd[] = {"tabbed","-r ,2","surf","-e x","~/.surf/html/homepage.html",NULL}; */
 static const char *fileexplorer[] = {"gnome-terminal","-x","nnn",NULL};
 static const char *nnn[] = {"gnome-terminal","-x","nnn",NULL};
 
-static const char *upvol[]   = { "amixer", "set", "Master", "5%+",     NULL };
-static const char *downvol[] = { "amixer", "set", "Master", "5%-",     NULL };
-static const char *mutevol[] = { "amixer", "set", "Master", "toggle", NULL };
+static const char *upvol[]   = { "/usr/bin/amixer", "set", "Master", "5%+",     NULL };
+static const char *downvol[] = { "/usr/bin/amixer", "set", "Master", "5%-",     NULL };
+static const char *mutevol[] = { "/usr/bin/amixer", "set", "Master", "toggle", NULL };
 
+/* Add to keys[] array. With 0 as modifier, you are able to use the keys directly. */
 static Key keys[] = {
-    /* modifier                     key        function        argument */
+    { 0,                       XF86XK_AudioLowerVolume, spawn, {.v = downvol } },
+    { 0,                       XF86XK_AudioMute, spawn, {.v = mutevol } },
+    { 0,                       XF86XK_AudioRaiseVolume, spawn, {.v = upvol   } },
+    /* modier                     key        function        argument */
     { MODKEY,             XK_p,      spawn,          {.v = dmenucmd } },
     { MODKEY,                       XK_Return, spawn,          {.v = termcmd } },
     { MODKEY,                       XK_r,       spawn,        {.v = rofiruncmd } }, //  SHCMD("rofi -show run") },
     { MODKEY,                       XK_w,       spawn,        {.v = browser } },
+    /* { MODKEY|Mod1Mask,              XK_b,       spawn,        SHCMD("tabbed -r 2 surf -e x '~/.surf/html/homepage.html'") }, */
     { MODKEY|ShiftMask,             XK_s,       spawn,          {.v =flameshotcmd} },
-    /* { MODKEY,			            XK_e,		spawn,	        SHCMD("~/.dotfiles/nnn/launcher.sh && exit")}, //{.v = fileexplorer} }, /1* tile *1/ */
-    /* { MODKEY,			            XK_e,		spawn,	        {.v = nnn} }}, //{.v = fileexplorer} }, /1* tile *1/ */
+    /* { MODKEY,                        XK_e,       spawn,          SHCMD("~/.dotfiles/nnn/launcher.sh && exit")}, //{.v = fileexplorer} }, /1* tile *1/ */
+    /* { MODKEY,                        XK_e,       spawn,          {.v = nnn} }}, //{.v = fileexplorer} }, /1* tile *1/ */
     
     { MODKEY,                       XK_b,      togglebar,      {0} },
     { MODKEY,                       XK_j,      focusstack,     {.i = +1 } },
@@ -121,13 +129,13 @@ static Key keys[] = {
     /* { MODKEY,                       XK_f,      setlayout,      {.v = &layouts[1]} }, */
     /* { MODKEY,                       XK_m,      setlayout,      {.v = &layouts[2]} }, */
     
-    /* { MODKEY,			            XK_e,		spawn,	        {.v = fileexplorer} }, /1* tile *1/ */
+    /* { MODKEY,                        XK_e,       spawn,          {.v = fileexplorer} }, /1* tile *1/ */
     
-    { MODKEY|ShiftMask,			            XK_y,		setlayout,	{.v = &layouts[0]} }, /* tile */
-	{ MODKEY|ShiftMask,		                XK_u,		setlayout,	{.v = &layouts[1]} }, /* float */
-	{ MODKEY|ShiftMask,			            XK_i,		setlayout,	{.v = &layouts[2]} }, /* Centeredmaster */
-	{ MODKEY|ShiftMask,			            XK_o,		setlayout,	{.v = &layouts[3]} }, /* CenteredFloating Master */
-	{ MODKEY|ShiftMask,		                XK_p,		setlayout,	{.v = &layouts[4]} }, /* monocle */
+    { MODKEY|ShiftMask,                     XK_y,       setlayout,  {.v = &layouts[0]} }, /* tile */
+    { MODKEY|ShiftMask,                     XK_u,       setlayout,  {.v = &layouts[1]} }, /* float */
+    { MODKEY|ShiftMask,                     XK_i,       setlayout,  {.v = &layouts[2]} }, /* Centeredmaster */
+    { MODKEY|ShiftMask,                     XK_o,       setlayout,  {.v = &layouts[3]} }, /* CenteredFloating Master */
+    { MODKEY|ShiftMask,                     XK_p,       setlayout,  {.v = &layouts[4]} }, /* monocle */
 
     { MODKEY,                       XK_space,  setlayout,      {0} },
     { MODKEY|ShiftMask,             XK_space,  togglefloating, {0} },
@@ -146,9 +154,9 @@ static Key keys[] = {
     TAGKEYS(                        XK_6,                      5)
     /* TAGKEYS(                        XK_s,                      5) */
     { MODKEY|ShiftMask,             XK_q,      quit,           {0} },
-	{ MODKEY,                       XK_F6,    spawn,          {.v = upvol   } },
-	{ MODKEY,                       XK_F5,    spawn,          {.v = downvol } },
-	{ MODKEY,                       XK_F3,    spawn,          {.v = mutevol } },
+    { MODKEY,                       XK_F6,    spawn,          {.v = upvol   } },
+    { MODKEY,                       XK_F5,    spawn,          {.v = downvol } },
+    { MODKEY,                       XK_F3,    spawn,          {.v = mutevol } },
 };
 
 /* button definitions */

@@ -1,6 +1,9 @@
 
 " ###########################################
 " C-Language Shortcuts
+" include
+imap cinc <CR>#include<INC><ESC>?INC<CR>viwdi
+
 " if,else
 imap cif <CR>if(Condition){<CR><CR>}<ESC>?Condition<CR>viwdi
 imap celif <CR>else if(Condition){<CR><CR>}<ESC>?Condition<CR>viwdi
