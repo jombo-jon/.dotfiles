@@ -24,7 +24,7 @@ return require('packer').startup(function(use)
       })
 
     -- Hydra For Help View
-    use('anuvyklack/hydra.nvim')
+    -- use('anuvyklack/hydra.nvim')
     -- use("folke/which-key.nvim")
 
     -- Common Tool for neovim
